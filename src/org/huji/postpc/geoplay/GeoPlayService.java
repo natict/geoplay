@@ -32,6 +32,8 @@ public class GeoPlayService extends Service {
             	mLongitude = location.getLongitude();
             	mLatitude = location.getLatitude();
             	Log.d("geoplay", "got location!");
+            	
+            	
             }
 
             @Override
