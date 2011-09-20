@@ -4,6 +4,9 @@
       android:versionCode="1"
       android:versionName="1.0">
     <uses-sdk android:minSdkVersion="8" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
     <application android:icon="@drawable/icon" android:label="@string/app_name">
         <activity android:name=".GeoPlayActivity"
@@ -17,6 +20,10 @@
         <activity android:name=".HomeActivity"> </activity>
         <activity android:name=".PlayerActivity"> </activity>
 		<uses-sdk android:minSdkVersion="3" />
-		<service android:enabled="true" android:name="GeoPlayService" />
+		<service android:enabled="true" android:name=".GeoPlayService" android:process=":remote">
+			<intent-filter>
+				<action android:name="org.huji.postpc.geoplay.GeoPlayService" />
+			</intent-filter>
+		</service>
     </application>
 </manifest>
