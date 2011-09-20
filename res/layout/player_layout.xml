@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/smiling_planet">
+<TextView style="@style/HeaderFont"/>
+<TableRow android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/tableRow2" android:layout_weight="1">
+<TextView android:text="Stream Name" android:id="@+id/textView1" style="@style/TextFont"/>
+</TableRow>
+<TableRow android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/tableRow3" android:layout_weight="1">
+    <TextView android:text="xxxxx" android:id="@+id/textView2" style="@style/TextFont"/>
+    </TableRow>
+<TableRow android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/tableRow4" android:layout_weight="1">
+    <TextView android:text="Provider" android:id="@+id/textView3" style="@style/TextFont"/>
+    </TableRow>
+    <TableRow android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/tableRow5" android:layout_weight="1">
+ 
+    <TextView android:text="yyyyy" android:id="@+id/textView4" style="@style/TextFont"/>
+</TableRow>
+<TableRow android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/tableRow1" android:layout_weight="1" android:paddingLeft="30dip" android:paddingTop="5dip">
+<ImageButton android:id="@+id/mediaController1" android:layout_width="50dip" android:layout_height="50dip" android:background="@drawable/play_button" android:layout_marginLeft="10dip" android:layout_marginRight="5dip" android:layout_marginTop="10dip" android:layout_marginBottom="10dip"> </ImageButton>
+<MediaController android:id="@+id/mediaController3" android:layout_width="50dip" android:layout_height="50dip" android:background="@drawable/settings_button" android:layout_margin="10dip"></MediaController>
+<MediaController android:id="@+id/mediaController2" android:layout_height="50dip" android:layout_margin="10dip" android:background="@drawable/select_button" android:layout_width="70dip"></MediaController>
+</TableRow>
+
+
+
+
+</LinearLayout>

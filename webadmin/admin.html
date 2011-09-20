@@ -1,0 +1,144 @@
+<html>
+<head>
+	<title>GeoPlay Admin Console</title>
+	<style type="text/css">
+		html, body {
+			width: 100%;
+			height: 100%;
+			margin: 0;
+		}
+		
+		#basicMap {
+			height: 300px;
+			width: 500px;
+		}
+	</style>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+	<script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+	<script src="json2.js"></script>
+	<script>
+		function roundNumber(num, dec) {
+			var result = Math.round(num * Math.pow(10, dec)) / Math.pow(10, dec);
+			return result;
+		}
+		
+		OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {                
+			defaultHandlerOptions: {
+				'single': true,
+				'double': false,
+				'pixelTolerance': 0,
+				'stopSingle': false,
+				'stopDouble': false
+			},
+
+			initialize: function(options) {
+				this.handlerOptions = OpenLayers.Util.extend(
+					{}, this.defaultHandlerOptions
+				);
+				OpenLayers.Control.prototype.initialize.apply(
+					this, arguments
+				); 
+				this.handler = new OpenLayers.Handler.Click(
+					this, {
+						'click': this.trigger
+					}, this.handlerOptions
+				);
+			}, 
+
+			trigger: function(e) {
+				var lonlat = map.getLonLatFromViewPortPx(e.xy);
+				lonlat.transform(
+					new OpenLayers.Projection("EPSG:900913"),
+					new OpenLayers.Projection("EPSG:4326")
+				);
+				
+				//Get the markers layer
+				var markers;
+				for (layer in map.layers) {
+					if (map.layers[layer].name == "Markers") {
+						markers = map.layers[layer];
+						break;
+					}
+				}
+				
+				//markers.clearMarkers(); //Clear all the current markers
+				var size = new OpenLayers.Size(21,25);
+				//var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
+				document.getElementById("loc").value = "[" + roundNumber(lonlat.lon, 2) + "," + roundNumber(lonlat.lat, 2) + "]";
+				//Add a new marker in the selected location
+				markers.addMarker(new OpenLayers.Marker(
+					lonlat,
+					//new OpenLayers.Icon("http://www.openlayers.org/dev/img/marker.png", new OpenLayers.Size(21,25), e.xy)
+					new OpenLayers.Icon("http://www.openlayers.org/dev/img/marker.png", new OpenLayers.Size(21,25), new OpenLayers.Pixel(-(size.w/2), -size.h))
+				));
+				
+				
+			}
+
+		});
+		
+		var map;
+		
+		function init() {
+			map = new OpenLayers.Map("basicMap");
+			var mapnik = new OpenLayers.Layer.OSM();
+			var markers = new OpenLayers.Layer.Markers("Markers");
+			map.addLayer(mapnik);
+			map.addLayer(markers);
+			map.setCenter(
+				new OpenLayers.LonLat(35.19,31.77).transform( //Center on Giva'at Ram
+					new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+					new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
+				), 12 // Zoom level
+			);
+			
+			var click = new OpenLayers.Control.Click();
+			map.addControl(click);
+			click.activate();
+		}
+		
+		$(function () {
+			$("#submit").submit(function (e) {
+				$.ajax({
+					url: "http://192.168.1.107:9200/geoplay/loc/?",
+					dataType: "json",
+					type: "POST",
+					success: function (data, textStatus, jqXHR) {
+						alert("success!");
+					},
+					data: JSON.stringify({
+						"name": $("#loc_name").val(),
+						"location": $("#loc").val(),
+						"stream": $("#stream").val()
+					})
+				});
+				
+				return false;
+			});
+			
+			init();
+		});
+	</script>
+</head>
+<body>
+	<form method="post" action="http://192.168.1.107:9200/geoplay/loc/?">
+		<ul>
+			<li>
+				Select Your Location:
+				<div id="basicMap"></div>
+				<input type="text" id="location" name="location" disabled="disabled" />
+			</li>
+			<li>
+				<label for="loc_name">Location/Stream Name:&nbsp;</label>
+				<input type="text" name="name" id="name" />
+			</li>
+			<li>
+				<label for="stream">Stream:&nbsp;</label>
+				<input type="text" name="stream" id="stream" />
+				<!--<input type="file" name="stream" id="stream" /> -->
+			</li>
+			<li><input type="submit" id="submit" value="Create Stream" /></li>
+		</ul>
+	</form>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/smiling_planet">
+<TextView style="@style/HeaderFont"/>
+<LinearLayout android:layout_width="match_parent" android:id="@+id/linearLayout1" android:layout_height="wrap_content" android:orientation="vertical">
+</LinearLayout>
+<Button android:layout_width="match_parent" android:text="About" android:id="@+id/button2" android:layout_height="wrap_content" android:layout_weight="0"></Button>
+<Button android:layout_width="match_parent" android:text="Settings" android:id="@+id/button3" android:onClick="setSettingsLayout" android:layout_height="wrap_content"></Button>
+</LinearLayout>

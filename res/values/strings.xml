@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">GeoPlay!</string>
+    <string name="app_name">GeoPlay</string>
+    <string name="ok">OK</string>
+    <string name="WELCOME_MSG">\nWelcome to GeoPlay!\nGeoPlay is a location based audio streaming service. It just sits there and waits \'till you get somewhere interesting; And when you get there - it\'ll jump at you and will gladly serve you with some fun audio for you to enjoy.\nNow, click the button bellow to start!</string>
+    <string name="WMSG_SETUP">Dont show this next time</string>
+    <string name="Start_Btn">Click Here To Start</string>
+</resources>
