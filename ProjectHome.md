@@ -1,0 +1,1 @@
+An Android application to allow streaming location sensitive content to the users device.
